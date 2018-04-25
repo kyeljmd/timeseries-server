@@ -1,28 +1,32 @@
 package com.nxtgen.apm.timeseriesserver.timeseries.model;
 
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.redis.core.RedisHash;
-
+import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
-@RedisHash("EventData")
+@Entity
+@Table(name = "Event_Datas")
 public class Event {
 
     @Id
-    private String id;
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    private Long id;
 
+    @Column(name = "metric_name")
     private String metricName;
 
+    @Column(name = "time_of_collection")
     private LocalDateTime timeOfCollection;
 
+    @Column(name = "metric_value")
     private Long metricValue;
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

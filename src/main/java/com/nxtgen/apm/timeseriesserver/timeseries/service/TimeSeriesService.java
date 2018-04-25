@@ -3,6 +3,7 @@ package com.nxtgen.apm.timeseriesserver.timeseries.service;
 import com.nxtgen.apm.timeseriesserver.timeseries.dtos.EventData;
 
 import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.List;
 
 /**
@@ -14,7 +15,7 @@ public interface TimeSeriesService {
 
     List<EventData> save(List<EventData> eventData);
 
-    List<EventData> retrieveEvent(LocalDateTime start, LocalDateTime end, Pagination page);
+    List<EventData> retrieveEvent(LocalDateTime start, LocalDateTime end);
 
-    EventData retrieveEvent(String id);
+    EventData retrieveEvent(Long id);
 }

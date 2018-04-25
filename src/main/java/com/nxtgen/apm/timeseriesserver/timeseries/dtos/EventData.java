@@ -3,17 +3,13 @@ package com.nxtgen.apm.timeseriesserver.timeseries.dtos;
 
 public class EventData {
 
-    private String id;
+    private Long id;
 
     private String metricName;
 
     private String timeOfCollection;
 
     private Long metricValue;
-
-    public void setId(String id) {
-        this.id = id;
-    }
 
     public void setMetricName(String metricName) {
         this.metricName = metricName;
@@ -27,8 +23,12 @@ public class EventData {
         this.metricValue = metricValue;
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getMetricName() {
