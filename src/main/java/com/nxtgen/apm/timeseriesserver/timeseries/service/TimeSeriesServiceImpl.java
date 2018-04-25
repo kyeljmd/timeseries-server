@@ -20,8 +20,11 @@ import java.util.stream.Collectors;
 @Service
 public class TimeSeriesServiceImpl implements TimeSeriesService {
 
-    @Autowired
-    private EventRepository eventRepository;
+    private final EventRepository eventRepository;
+
+    public TimeSeriesServiceImpl(EventRepository eventRepository) {
+        this.eventRepository = eventRepository;
+    }
 
     @Override
     public EventData save(EventData eventData) {
@@ -47,18 +50,13 @@ public class TimeSeriesServiceImpl implements TimeSeriesService {
                     return event;
                 })
                 .collect(Collectors.toList());
-
         eventRepository.saveAll(events);
-
         return eventList;
     }
 
     @Override
     public List<EventData> retrieveEvent(LocalDateTime start, LocalDateTime end) {
         List<Event> events = eventRepository.findByTimeOfCollectionBetween(end,start);
-        System.out.println(start);
-        System.out.println(end);
-        System.out.println(events.size());
         return events.stream().map(e -> {
             EventData eventData = new EventData();
             eventData.setId(e.getId());

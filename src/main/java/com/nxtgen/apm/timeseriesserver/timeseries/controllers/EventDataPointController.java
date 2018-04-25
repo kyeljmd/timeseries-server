@@ -1,4 +1,4 @@
-package com.nxtgen.apm.timeseriesserver.timeseries;
+package com.nxtgen.apm.timeseriesserver.timeseries.controllers;
 
 import com.nxtgen.apm.timeseriesserver.timeseries.dtos.EventData;
 import com.nxtgen.apm.timeseriesserver.timeseries.service.TimeSeriesService;
@@ -12,10 +12,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-public class Controller {
+public class EventDataPointController {
 
-    @Autowired
-    private TimeSeriesService timeSeriesService;
+
+    private final TimeSeriesService timeSeriesService;
+
+    public EventDataPointController(TimeSeriesService timeSeriesService) {
+        this.timeSeriesService = timeSeriesService;
+    }
 
     @RequestMapping(value = "/timeseries",method = RequestMethod.POST)
     public EventData save(@RequestBody EventData eventData) {
@@ -27,15 +31,6 @@ public class Controller {
         timeSeriesService.save(eventDatas);
         return eventDatas;
     }
-
-
-    @RequestMapping(value = "/history", method =  RequestMethod.GET)
-    public List<EventData> fetchEventsWithDateRange(@RequestParam("to") String to, @RequestParam("from") String from) {
-        LocalDateTime toDate = LocalDateTime.parse(to);
-        LocalDateTime fromDate = LocalDateTime.parse(from);
-        return timeSeriesService.retrieveEvent(toDate,fromDate);
-    }
-
 
     @RequestMapping(value = "/timeseries/{id}",method = RequestMethod.GET)
     public EventData retrieveEvent(@PathVariable("id")Long  id) {
